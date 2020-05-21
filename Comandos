@@ -1,0 +1,63 @@
+Criar uma estrutura de banco de dados no SQL contendo, duas bases de dados, para cada base deverá constar 2 coleções e em cada coleção deverá constar 5 documentos. Deverá constar na entrega da Avaliação. Todos os códigos devem estar com base no MongoDB. Para cada questão de código explicar o seu funcionamento, isso se aplica nas questões 1, 2, 3,4,5 e 6; 
+1. Descrever os códigos para criação da base de dados, das coleções e dos documentos (1.0)
+Criando os 2 Bancos:
+
+use Contato – Banco 1 use Fornecedores – Banco 2
+Ciando as coleções:
+
+ Banco 1 use contato db.createCollection("empresa") db.createCollection("pessoa")
+Banco 2
+use fornecedores db.createCollection("fornecedor") db.createCollection("produto")
+Inserindo Documentos – Banco 1 use contato Documentos empresa: 
+db.empresa.insert([ {   "empresa": "empresa A",   "telefone": 999800882123,   "cnpj": "20001202",   "setor": "espacial",   "qtd_funcionario": 100,   "data_abertura": "10/08/00",   "imposto": "Simples Nacional" }, {   "empresa": "empresa B",   "telefone": 999800882124,   "cnpj": "20001203",   "setor": "varejo",
+   "qtd_funcionario": 200,   "data_abertura": "11/08/10",   "imposto": "MEI" }, {   "empresa": "empresa C",   "telefone": 999800882125,   "cnpj": "20001204",   "setor": "tecnologia",   "qtd_funcionario": 500,   "data_abertura": "12/08/20",   "imposto": "Super Simples" }, {   "empresa": "empresa D",   "telefone": 999800882126,   "cnpj": "20001205",   "setor": "transporte",   "qtd_funcionario": 800,   "data_abertura": "13/08/03",   "imposto": "Simples Nacional" }, {   "empresa": "empresa E",   "telefone": 999800882127,   "cnpj": "20001206",   "setor": "logística",   "qtd_funcionario": 1000,   "data_abertura": "14/08/07",   "imposto": "MEI" }, {   "empresa": "empresa F",   "telefone": 999800882128,   "cnpj": "20001207",   "setor": "industría",   "qtd_funcionario": 8000,   "data_abertura": "15/08/14",   "imposto": "Super Simples" } ])
+Documentos pessoa: 
+db.pessoa.insert([ {   "nome": "joao",   "sobrenome": "pereira",   "telefone": 99999999,   "cep": "08000-300",   "reg": 10600,
+   "endereco": "Rua 1" }, {   "nome": "carlos",   "sobrenome": "silva",   "telefone": 99999999,   "cep": "08000-500",   "reg": 10601,   "endereco": "Rua 2" }, {   "nome": "ricardo ",   "sobrenome": "jardim",   "telefone": 99999999,   "cep": "08000-400",   "reg": 10602,   "endereco": "Rua 3" }, {   "nome": "rodrigo",   "sobrenome": "newton",   "telefone": 99999999,   "cep": "08000-600",   "reg": 10603,   "endereco": "Rua 4" }, {   "nome": "roberto",   "sobrenome": "railson",   "telefone": 100000000,   "cep": "08000-601",   "reg": 10604,   "endereco": "Rua 5" } ])
+Inserindo Documentos – Banco 2 
+use fornecedores
+Documentos fornecedor: 
+db.fornecedor.insert([ {   "fornecedor": "A",   "qualidade produto": "boa",   "telefone": 8599800882123,   "cnpj": 30001202,   "cidade": "curitiba",   "pagamento": "dinheiro" },
+ {   "fornecedor": "B",   "qualidade produto": "média",   "telefone": 8599800882124,   "cnpj": 30001203,   "cidade": "são paulo",   "pagamento": "boleto" }, {   "fornecedor": "C",   "qualidade produto": "ruim",   "telefone": 8599800882125,   "cnpj": 30001204,   "cidade": "londrina",   "pagamento": "parcelado" }, {   "fornecedor": "D",   "qualidade produto": "média",   "telefone": 8599800882126,   "cnpj": 30001205,   "cidade": "cascavel",   "pagamento": "dinheiro" }, {   "fornecedor": "E",   "qualidade produto": "boa",   "telefone": 8599800882127,   "cnpj": 30001206,   "cidade": "maringa",   "pagamento": "boleto" } ])
+Documentos produto:
+ 
+db.produto.insert([ {   "PRODUTO": "Ração 1",   "CODIGO": 1010904803,   "VALOR": 100,   "QTDA": 100,   "FORNECEDOR": "A" }, {   "PRODUTO": "Ração 2",   "CODIGO": 1010888409,   "VALOR": 150,   "QTDA": 150,   "FORNECEDOR": "B" },
+ {   "PRODUTO": "Ração 3",   "CODIGO": 1010821401,   "VALOR": 200,   "QTDA": 10,   "FORNECEDOR": "C" }, {   "PRODUTO": "Ração 4",   "CODIGO": 1030107302,   "VALOR": 30,   "QTDA": 40,   "FORNECEDOR": "D" }, {   "PRODUTO": "Ração 5",   "CODIGO": 1010849167,   "VALOR": 25,   "QTDA": 20,   "FORNECEDOR": "E" } ])
+2. Descreve o código com 2 consultas simples, 2 exclusões, 2 alterações (1.5)
+Consulta:
+db.pessoa.find({sobrenome:"pereira"})
+db.empresa.find({setor:"espacial"})
+Exclusões
+db.pessoa.remove{sobrenome:"pereira"})
+db.empresa.remove({setor:"espacial"})
+Alterações
+db.empresa.update({'setor':'espacial'},{$set:{'setor':'AeroEspacial Nivel A'}})
+db.fornecedor.update({'qualidade produto':'média'},{$set:{'qualidade produto':'Nível Intermediário'}})
+3. Descrever o código com a criação de 2 índices. (0.5)
+Criação do Indíce para a Coleção Empresa:
+db.empresa.ensureIndex({CHAVE:1}) 
+Criação do Indíce para a Coleção Empresa:
+db.pessoa.ensureIndex({CHAVE:1}) 
+4. Descrever o código aplicando no mínimo três comando abaixo para busca, importante que a criação dos documentos permita. (2.0)
+Retorna a soma de trabalhadores por empresa:
+db.empresa.aggregate([{$group : {_id : "$empresa", total_funcionario : {$sum : "$qtd_funcionario"}}}])
+Retorna a soma por produto:
+db.produto.aggregate([{$group : {_id : "$PRODUTO", produto : {$sum : "$VALOR"}}}])
+Retorna a soma da quantidade de Produtos:
+db.produto.aggregate([{$group : {_id : "$PRODUTO", quantidade: {$sum : "$QTDA"}}}])
+5. Descrever o código aplicando no mínimo dois comandos abaixo para busca, importante que a criação dos documentos permita. (1.0)
+Igual 
+Empresa = Simples Nacional
+db.empresa.find({"imposto":"Simples Nacional"}).pretty()
+Empresa com Menor ou Igual a 100 Funcionários
+db.empresa.find({"qtd_funcionario":{$lte:100}}).pretty()
+Empresa com mais de 100 Funcionários db.empresa.find({"qtd_funcionario":{$gt:100}}).pretty()
+6. Descrever o código utilizando a condição and, or e and e or junto. (1.0)
+AND
+db.empresa.find({$and:[{"qtd_funcionario":{$gt:100}},{"empresa": "empresa B"}]}).pretty()
+OR
+db.empresa.find({$or:[{"qtd_funcionario":{$lte:500}},{"empresa": "empresa C"}]}).pretty()
+AND e OR
+db.empresa.find({"qtd_funcionario": {$gt:200}, $or: [{"setor": "varejo"},   {"imposto": "Simples Nacional"}]}).pretty()
+7. Descreva como o banco de dados não relacional pode ser aplicado em uma organização, e os ganhos que na utilização desta tecnologia, e demonstrando vantagens e desvantagens comparando com o uso do banco de dados relacional (1.0)
+O banco de dados NoSQL pode ser usado para a expansão no armazenamento da informação, pois possuem uma boa escalabilidade e robustez, armazenando um grande volume de dados em tempo real, não gerando arquivos extremamente pesados e gargalos nos processamentos dos servidores, pois trabalha em clurster de máquinas, facilitando a compartilhação dos dados.  A construção e documentação (Inserção) dos dados é simples, pois não há a necessidade da modelagem dos dados por si só. As desvantagens é a que não possui padrões de linguagens de definição e manipulação ao contrário dos bancos de dados relacionais com o SQL que é padrão. É uma tecnologia nova, que muitos desconhecem ou se aprofundam, gerando ainda falta de profissionais no mercado para o seu uso comprado aos bancos de dados relacionais. 
